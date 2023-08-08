@@ -8,10 +8,10 @@
  */
 void non_interactive_shell(void)
 {
-	char *line;
+	char line[BUFFER_SIZE];
 	char **args;
 	int status;
-	
+
 	do {
 		fgets(line, BUFFER_SIZE, stdin);
 		args = split_line(line);
@@ -21,4 +21,3 @@ void non_interactive_shell(void)
 
 	exit(status);
 }
-	

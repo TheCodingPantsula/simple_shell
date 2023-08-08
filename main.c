@@ -7,14 +7,13 @@
  */
 int main(void)
 {
-	// checks if the descriptor is associated with the termi
 	if (isatty(STDIN_FILENO))
 	{
 		shell_interactive();
 	}
 	else
 	{
-		shell_no_interactive();
+		non_interactive_shell();
 	}
 	return (0);
 }

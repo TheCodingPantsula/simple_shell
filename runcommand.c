@@ -8,29 +8,29 @@
  */
 int runcommand(char **args)
 {
-	char *builtins[] = {
+	char *builtins_list[] = {
 		"cd",
 		"env",
 		"help",
 		"exit"
 	};
-	int (*builins[])(char **) = {
+	int (*builtins_func[])(char **) = {
 		&my_cd,
 		&my_env,
 		&my_help,
 		&my_exit
 	};
-	int i;
+	size_t i = 0;
 
 	if (args[0] == NULL)
 	{
 		return (-1);
 	}
-	for (i = 0; i < sizeof(builtins) / sizeof(char *); i++)
+	for (; i < sizeof(builtins_list) / sizeof(char *); i++)
 	{
-		if (strcmp(args[0], builtins[i]) == 0)
+		if (strcmp(args[0], builtins_list[i]) == 0)
 		{
-			return ((*builtins[i])(args));
+			return ((*builtins_func[i])(args));
 		}
 	}
 	return (new_process(args));

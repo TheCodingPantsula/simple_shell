@@ -19,7 +19,7 @@ char *read_line(void)
 			free(line);
 			exit(EXIT_SUCCESS);
 		}
-		else 
+		else
 		{
 			perror("error reading the line from stdin");
 			free(line);
