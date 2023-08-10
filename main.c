@@ -1,4 +1,5 @@
 #include "shell.h"
+#include "builtins.h"
 
 /**
  * main - checks if the shell is called
