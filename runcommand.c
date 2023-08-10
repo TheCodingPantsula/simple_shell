@@ -8,7 +8,7 @@
  */
 int runcommand(char **args)
 {
-	char *builtins_list[] = {
+	char *builtins_func_list[] = {
 		"cd",
 		"env",
 		"help",
@@ -26,9 +26,9 @@ int runcommand(char **args)
 	{
 		return (-1);
 	}
-	for (; i < sizeof(builtins_list) / sizeof(char *); i++)
+	for (; i < sizeof(builtins_func_list) / sizeof(char *); i++)
 	{
-		if (strcmp(args[0], builtins_list[i]) == 0)
+		if (strcmp(args[0], builtins_func_list[i]) == 0)
 		{
 			return ((*builtins_func[i])(args));
 		}
