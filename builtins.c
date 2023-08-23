@@ -1,70 +1,45 @@
 #include "shell.h"
 
 /**
- * own_cd - changs the current working directory
- * @args: commands and flags
- *
- * Return: 1 on success, otherwise 0
+ * terminate_shell - terminates the shell
+ * @argv: command instruction
+ * Return: exits on 0 (Success)
  */
-int own_cd(char **args)
+int terminate_shell(char **argv)
 {
-	if (args[1] == NULL)
+	int status = 0;
+
+	if (argv[1] != NULL)
 	{
-		fprintf(stderr, "own_cd: expected arguments to \"cd\"\n");
+		status = atoi(argv[1]);
 	}
-	else
+	exit(status);
+}
+
+/**
+ * change_directory - switch from pwd
+ * @argv: directory name to switch
+ * Return: Exit on 1 (Success)
+ */
+int change_directory(char **argv)
+{
+	if (argv[1] == NULL)
 	{
-		if (chdir(args[1]) != 0)
+		fprintf(stderr, ": wrong argument\n");
+		return (1);
+	}
+
+	if (chdir(argv[1]) != 0)
+	{
+		if (errno == ENOENT)
 		{
-			perror("own_cd");
+			fprintf(stderr, "Can't find directory: %s\n", argv[1]);
 		}
+		else
+		{
+			perror("Can't find directory");
+		}
+		return (1);
 	}
-	return (1);
-}
-/**
- * own_env - prints the environment variables
- * @args: commands and flags
- *
- * Return: 1 on success, otherwise 0
- */
-int own_env(char **args)
-{
-	int i;
-	(void) args;
-
-	for (i = 0; environ[i] != NULL; i++)
-	{
-		printf("%s\n", environ[i]);
-	}
-	return (1);
-}
-/**
- * own_help - displays help information for shell commands
- * @args: commands and flags
- *
- * Return: 1 on success, otherwise 0
- */
-int own_help(char **args)
-{
-	(void) args;
-	printf("Type, and hit enter.\n");
-	printf("Built in:\n");
-
-	printf(" cd\n");
-	printf(" env\n");
-	printf(" help\n");
-	printf(" exit\n");
-
-	return (1);
-}
-/**
- * own_exit - exits the shell
- * @args: commands and flags
- *
- * Return: 1 on success, otherwise 0
- */
-int own_exit(char **args)
-{
-	(void) args;
 	return (0);
 }
