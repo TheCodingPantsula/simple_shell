@@ -1,22 +1,23 @@
 #include "shell.h"
 
 /**
- * _getline - reads a line from stdin
- * @buffer: pointer to the buffer
- * @size_t: pointer to the size of the buffer
+ * _getline - reads a line from stdin and stores it in a buffer
+ *
+ * @buffer: pointer to the buffer where line is stored.
+ * @buff_size_ptr: pointer to the size of the buffer
  * @stream: pointer to the input stream
  *
  * Return: number of characters read, exclude terminate null byte,
  * or -1 if error occurs
  */
-ssize_t _getline(char **buffer, size_t *buffer_size, FILE *stream)
+ssize_t _getline(char **buffer, size_t *buff_size_ptr, FILE *stream)
 {
-	ssize_t buff_size = *buffer_size, len = 0;
+	ssize_t buff_size = *buff_size_ptr, len = 0;
 	int character;
 	char *new_buffer;
 
 	/* Checks buffer, allocates memory and handle error */
-	if (*bufffer = NULL)
+	if (*buffer ==  NULL)
 	{
 		buff_size = 128;
 		*buffer = malloc(buff_size * sizeof(char));
@@ -24,13 +25,16 @@ ssize_t _getline(char **buffer, size_t *buffer_size, FILE *stream)
 			return (-1);
 	}
 
-	while ((character = fgetc(stream)) != EOF)
+	character = fgetc(stream);
+	while (character != EOF)
 	{
 		/* Checks and resizes the buffer_size by doubling it */
-		if (len >= buff_size - 1) /* if it can't handle the line, reallocate memory */
+		/* if it can't handle the line, realocate memory */
+		if (len >= buff_size - 1)
 		{
 			buff_size *= 2;
-			new_buffer = realloc(*buffer, buff_size);
+			new_buffer = realloc(*buffer,
+					buff_size);
 			if (new_buffer == NULL)
 			{
 				free(*buffer);
@@ -42,10 +46,10 @@ ssize_t _getline(char **buffer, size_t *buffer_size, FILE *stream)
 		(*buffer)[len++] = character;
 		if (character == '\n')
 			break;
+		character = fgetc(stream);
 	}
 	if (len == 0 && character == EOF)
 		return (-1);
 	(*buffer)[len] = '\0';
 	return (len);
 }
-
