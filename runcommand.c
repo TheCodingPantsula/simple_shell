@@ -27,7 +27,7 @@ int runbuiltins_commands(char **argv, char *str)
 	pid = _runchildprocess(argv, str);
 	if (pid == -1)
 		return (-1);
-	status = _childprocess(pid);
+	status = _childprocess();
 	if (WIFEXITED(status))
 	{
 		return (WEXITSTATUS(status));

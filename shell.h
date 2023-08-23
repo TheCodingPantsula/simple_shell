@@ -22,6 +22,7 @@ unsigned int _review_delim(char c, const char *delim);
 ssize_t _getline(char **buffer, size_t *buff_size_ptr, FILE *stream);
 int terminate_shell(char **argv);
 int change_directory(char **argv);
+char *load_path(char *cmd);
 int runbuiltins_commands(char **argv, char *str);
 int execute_commands(char **argv, char *str);
 char *get_command_path(char *command);
