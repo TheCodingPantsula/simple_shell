@@ -1,20 +1,21 @@
 #include "shell.h"
-#include "builtins.h"
 
 /**
- * main - checks if the shell is called
- *
- * Return: 0 on success(Always)
+ * _childprocess - allows function child process
+ * @pid: process id
+ * Return: child process returned
  */
-int main(void)
+int _childprocess(pid_t pid)
 {
-	if (isatty(STDIN_FILENO))
+	int status;
+
+	while (waitpid(pid, &status, 0) == -1)
 	{
-		shell_interactive();
+		if (errno != EINTR)
+		{
+			return (-1);
+		}
 	}
-	else
-	{
-		non_interactive_shell();
-	}
-	return (0);
+
+	return (status);
 }
