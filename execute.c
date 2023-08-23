@@ -11,7 +11,7 @@ char *load_path(char *cmd);
 int execute_commands(char **argv, char *str)
 {
 	int status;
-	
+
 	status = execve(argv[0], argv, NULL);
 
 	if (status == -1)
