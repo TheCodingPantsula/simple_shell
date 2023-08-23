@@ -16,7 +16,7 @@ char *get_command_path(char *command)
 	{
 		path_cpy = strdup(path);
 		command_len = strlen(command);
-		path_toekn = _strtok(path_cpy, ":");
+		path_token = _strtok(path_cpy, ":");
 		while (path_token != NULL)
 		{
 			dir_len = strlen(path_token);

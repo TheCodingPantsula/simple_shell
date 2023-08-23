@@ -9,7 +9,7 @@
 int runbuiltins_commands(char **argv, char *str)
 {
 	int count;
-	int pid, statuys;
+	int pid, status;
 	char *builtin_commands[] = { "exit", "cd" };
 
 	int numofbuiltins = sizeof(builtin_commands) / sizeof(char *);
@@ -19,15 +19,15 @@ int runbuiltins_commands(char **argv, char *str)
 	if (argv[0] == NULL)
 		return (0);
 
-	for (xcount = 0; count < numofbuiltins ; count++)
+	for (count = 0; count < numofbuiltins ; count++)
 	{
 		if (_strcmp(argv[0], builtin_commands[count]) == 0)
 			return ((*builtin_functions[count])(argv));
 	}
-	pid = run_child_process(argv, str);
+	pid = _runchildprocess(argv, str);
 	if (pid == -1)
 		return (-1);
-	status = child_process(pid);
+	status = _childprocess(pid);
 	if (WIFEXITED(status))
 	{
 		return (WEXITSTATUS(status));

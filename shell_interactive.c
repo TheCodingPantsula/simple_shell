@@ -8,7 +8,7 @@
 void run_interactive_mode(char **argv)
 {
 	char *buffer = NULL;
-	char **argss = NULL;
+	char **args = NULL;
 	size_t len = 0;
 	ssize_t read;
 

@@ -12,8 +12,9 @@
 #include <sys/stat.h>
 
 #define BUFFER_SIZE 1024
+#define TOKEN_BUFSIZE 64
 
-int _childprocess(pid_t pid);
+int _childprocess(void);
 int _strcmp(char *str1, char *str2);
 char **_token(char *str);
 char *_strtok(char *str, const char *delim);
@@ -23,7 +24,6 @@ int terminate_shell(char **argv);
 int change_directory(char **argv);
 int runbuiltins_commands(char **argv, char *str);
 int execute_commands(char **argv, char *str);
-int *get_command_path(char *command);
 char *get_command_path(char *command);
 void run_batch_mode(char **argv);
 void run_interactive_made(char **argv);

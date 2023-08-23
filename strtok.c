@@ -17,7 +17,7 @@ char *_strtok(char *str, const char *delim)
 	if (!str)
 		return (NULL);
 
-	while (*str && _check_delim(*str, delim))
+	while (*str && _review_delim(*str, delim))
 		str++;
 
 	if (*str == '\0')
@@ -25,7 +25,7 @@ char *_strtok(char *str, const char *delim)
 
 	res = str;
 
-	while (*str && !_check_delim(*str, delim))
+	while (*str && !_review_delim(*str, delim))
 		str++;
 
 	if (*str)
