@@ -1,37 +1,37 @@
 #include "shell.h"
 
 /**
- * runcommand - checks if command is a builtin or not
- * @args: command and flags
- *
- * Return: 1 on success, otherwise 0
+ * runbuiltins_commands - executes builtin commands
+ * @argv: array of commands
+ * @str: calls args
+ * Return: 1 (on failure), otherwise runcommands
  */
-int runcommand(char **args)
+int runbuiltins_commands(char **argv, char *str)
 {
-	char *builtins_func_list[] = {
-		"cd",
-		"env",
-		"help",
-		"exit"
-	};
-	int (*builtins_func[])(char **) = {
-		&my_cd,
-		&my_env,
-		&my_help,
-		&my_exit
-	};
-	size_t i = 0;
+	int count;
+	int pid, statuys;
+	char *builtin_commands[] = { "exit", "cd" };
 
-	if (args[0] == NULL)
+	int numofbuiltins = sizeof(builtin_commands) / sizeof(char *);
+
+	int (*builtin_functions[])(char **) = { &terminate_shell, &change_directory };
+
+	if (argv[0] == NULL)
+		return (0);
+
+	for (xcount = 0; count < numofbuiltins ; count++)
 	{
+		if (_strcmp(argv[0], builtin_commands[count]) == 0)
+			return ((*builtin_functions[count])(argv));
+	}
+	pid = run_child_process(argv, str);
+	if (pid == -1)
 		return (-1);
-	}
-	for (; i < sizeof(builtins_func_list) / sizeof(char *); i++)
+	status = child_process(pid);
+	if (WIFEXITED(status))
 	{
-		if (strcmp(args[0], builtins_func_list[i]) == 0)
-		{
-			return ((*builtins_func[i])(args));
-		}
+		return (WEXITSTATUS(status));
 	}
-	return (new_process(args));
+
+	return (-1);
 }

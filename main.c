@@ -1,21 +1,25 @@
 #include "shell.h"
 
 /**
- * _childprocess - allows function child process
- * @pid: process id
- * Return: child process returned
+ * main - entry point of program
+ * @argc: argument counter
+ * @argv: vector pointer
+ * Return: 0 (On success), otherwise 1
  */
-int _childprocess(pid_t pid)
+int main(int argc, char **argv)
 {
-	int status;
-
-	while (waitpid(pid, &status, 0) == -1)
+	if (argc >= 2)
 	{
-		if (errno != EINTR)
-		{
-			return (-1);
-		}
+		printf("Usage: %s\n", argv[0]);
+		return (1);
 	}
-
-	return (status);
+	if (isatty(STDIN_FILENO))
+	{
+		run_interactive_mode(argv);
+	}
+	else
+	{
+		run_batch_mode(argv);
+	}
+	return (0);
 }
