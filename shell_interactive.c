@@ -14,7 +14,7 @@ void run_interactive_mode(char **argv)
 
 	while (1)
 	{
-		printf("(prompt $) ");
+		printf("($) ");
 		read = getline(&buffer, &len, stdin);
 
 		if (read <= 0)

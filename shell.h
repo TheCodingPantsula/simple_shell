@@ -14,7 +14,7 @@
 #define BUFFER_SIZE 1024
 #define TOKEN_BUFSIZE 64
 
-int _childprocess(void);
+int _childprocess(pid_t pid);
 int _strcmp(char *str1, char *str2);
 char **_token(char *str);
 char *_strtok(char *str, const char *delim);
