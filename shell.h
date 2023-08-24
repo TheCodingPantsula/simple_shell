@@ -11,6 +11,8 @@
 #include <errno.h>
 #include <sys/stat.h>
 
+extern char **environ;
+
 #define BUFFER_SIZE 1024
 #define TOKEN_BUFSIZE 64
 
@@ -29,4 +31,7 @@ char *get_command_path(char *command);
 void run_batch_mode(char **argv);
 void run_interactive_made(char **argv);
 int _runchildprocess(char **argv, char *str);
+void env(char **args);
+void set_env(char **args);
+void unset_env(char **args);
 #endif
