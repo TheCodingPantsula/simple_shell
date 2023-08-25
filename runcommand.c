@@ -10,16 +10,17 @@ int runbuiltins_commands(char **argv, char *str)
 {
 	int count;
 	int pid, status;
-	char *builtin_commands[] = { "exit", "cd" };
+	char *builtin_commands[] = { "exit", "cd", "env", "setenv", "unsetenv" };
 
 	int numofbuiltins = sizeof(builtin_commands) / sizeof(char *);
 
-	int (*builtin_functions[])(char **) = { &exit_shell, &cd };
+	int (*builtin_functions[])(char **) = { &exit_shell, &cd, &env, &set_env,
+&unset_env };
 
 	if (argv[0] == NULL)
 		return (0);
 
-	for (count = 0; count < numofbuiltins ; count++)
+	for (count = 0; count < numofbuiltins; count++)
 	{
 		if (_strcmp(argv[0], builtin_commands[count]) == 0)
 			return ((*builtin_functions[count])(argv));
