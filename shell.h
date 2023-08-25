@@ -14,6 +14,8 @@
 extern char **environ;
 
 #define BUFFER_SIZE 1024
+#define MAX_PATH_LEN 1024
+#define MAX_ARGS 64
 #define TOKEN_BUFSIZE 64
 
 int _childprocess(pid_t pid);
@@ -34,4 +36,5 @@ int _runchildprocess(char **argv, char *str);
 void env(char **args);
 void set_env(char **args);
 void unset_env(char **args);
+char **split_line(char *line);
 #endif
