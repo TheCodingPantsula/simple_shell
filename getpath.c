@@ -25,7 +25,7 @@ char *get_command_path(char *command)
 			file_path = malloc(command_len + dir_len + 2);
 			strcpy(file_path, dir);
 			strcat(file_path, "/");
-			strcat(file_path, cmd);
+			strcat(file_path, command);
 			if (stat(file_path, &buffer) == 0)
 			{
 				free(path_cpy);
