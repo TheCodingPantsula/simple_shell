@@ -14,7 +14,7 @@ int runbuiltins_commands(char **argv, char *str)
 
 	int numofbuiltins = sizeof(builtin_commands) / sizeof(char *);
 
-	int (*builtin_functions[])(char **) = { &terminate_shell, &change_directory };
+	int (*builtin_functions[])(char **) = { &exit_shell, &cd };
 
 	if (argv[0] == NULL)
 		return (0);
