@@ -9,10 +9,8 @@ void run_batch_mode(char **argv)
 {
 	char *buffer = NULL;
 	char **args = NULL;
-	size_t len = 0;
-	ssize_t read;
 
-	while ((read = getline(&buffer, &len, stdin)) != -1)
+	while ((buffer = _getline()) != NULL)
 	{
 		buffer[strcspn(buffer, "\n")] = '\0';
 		if (strcmp(buffer, "exit") == 0)
