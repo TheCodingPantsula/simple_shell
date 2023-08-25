@@ -3,8 +3,9 @@
 /**
  * unset_env - unset environment variable
  * @args: array of arguments
+ * Return: 0 (on success), otherwsise 1 if error occured
  */
-void unset_env(char **args)
+int unset_env(char **args)
 {
 	if (args[1] == NULL)
 	{
@@ -16,4 +17,5 @@ void unset_env(char **args)
 	{
 		perror("unsetenv");
 	}
+	return (0);
 }

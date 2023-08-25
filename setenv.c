@@ -3,8 +3,9 @@
 /**
  * set_env - set environment variable
  * @args: array of arguments
+ * Return: 0 (on success), otherwise 1 if error occured
  */
-void set_env(char **args)
+int set_env(char **args)
 {
 	if (args[1] == NULL || args[2] == NULL)
 	{
@@ -16,4 +17,5 @@ void set_env(char **args)
 	{
 		perror("setenv");
 	}
+	return (0);
 }

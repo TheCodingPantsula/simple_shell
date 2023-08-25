@@ -5,9 +5,9 @@ void run_batch_mode(char **argv);
 
 int exit_shell(char **argv);
 int cd(char **argv);
-void env(char **args);
-void set_env(char **args);
-void unset_env(char **args);
+int env(char **args);
+int set_env(char **args);
+int unset_env(char **args);
 
 /**
  * main - entry point of program

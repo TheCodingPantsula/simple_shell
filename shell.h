@@ -33,8 +33,8 @@ char *get_command_path(char *command);
 void run_batch_mode(char **argv);
 void run_interactive_made(char **argv);
 int _runchildprocess(char **argv, char *str);
-void env(char **args);
-void set_env(char **args);
-void unset_env(char **args);
+int env(char **args);
+int set_env(char **args);
+int unset_env(char **args);
 char **split_line(char *line);
 #endif

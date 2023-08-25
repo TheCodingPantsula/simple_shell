@@ -3,8 +3,9 @@
 /**
  * env - print the current environment
  * @args: array of arguments
+ * Return: 0 if succussful, otherwise 1 if error occured
  */
-void env(char **args)
+int env(char **args)
 {
 	int i;
 	(void) args; /* To prevent unused parameter */
@@ -13,4 +14,5 @@ void env(char **args)
 	{
 		printf("%s\n", environ[i]);
 	}
+	return (0);
 }
