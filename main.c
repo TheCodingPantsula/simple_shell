@@ -3,6 +3,7 @@
 void run_interactive_mode(char **argv);
 void run_batch_mode(char **argv);
 
+
 /**
  * main - entry point of program
  * @argc: argument counter

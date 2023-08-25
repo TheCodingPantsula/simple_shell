@@ -23,23 +23,33 @@ int terminate_shell(char **argv)
  */
 int change_directory(char **argv)
 {
+	char *dir;
+	char cwd[1024];
+
 	if (argv[1] == NULL)
 	{
-		fprintf(stderr, ": wrong argument\n");
-		return (1);
+		dir = getenv("Home");
+	}
+	else if (strcmp(argv[1], "-") == 0)
+	{
+		dir = getenv("Oldpwd");
+	}
+	else
+	{
+		dir = argv[1];
 	}
 
-	if (chdir(argv[1]) != 0)
+	if (chdir(dir) == -1)
 	{
-		if (errno == ENOENT)
+		perror("cd");
+	}
+	else
+	{
+		setenv("Oldpwd", getenv("pwd"), 1);
+		if (getcwd(cwd, sizeof(cwd)) != NULL)
 		{
-			fprintf(stderr, "Can't find directory: %s\n", argv[1]);
+			setenv("pwd", cwd, 1);
 		}
-		else
-		{
-			perror("Can't find directory");
-		}
-		return (1);
 	}
 	return (0);
 }
