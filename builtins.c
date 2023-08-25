@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- * terminate_shell - terminates the shell
+ * exit_shell - terminates the shell
  * @argv: command instruction
  * Return: exits on 0 (Success)
  */
-int terminate_shell(char **argv)
+int exit_shell(char **argv)
 {
 	int status = 0;
 
@@ -17,11 +17,11 @@ int terminate_shell(char **argv)
 }
 
 /**
- * change_directory - switch from pwd
+ * cd - switch from pwd
  * @argv: directory name to switch
  * Return: Exit on 1 (Success)
  */
-int change_directory(char **argv)
+int cd(char **argv)
 {
 	char *dir;
 	char cwd[1024];

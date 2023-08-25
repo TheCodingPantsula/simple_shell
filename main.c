@@ -3,8 +3,8 @@
 void run_interactive_mode(char **argv);
 void run_batch_mode(char **argv);
 
-int terminate_shell(char **argv);
-int change_directory(char **argv);
+int exit_shell(char **argv);
+int cd(char **argv);
 void env(char **args);
 void set_env(char **args);
 void unset_env(char **args);
