@@ -10,7 +10,7 @@ int set_env(char **args)
 	if (args[1] == NULL || args[2] == NULL)
 	{
 		fprintf(stderr, "setenv: not enough arguments\n");
-		return;
+		return (0);
 	}
 
 	if (setenv(args[1], args[2], 1) == -1)

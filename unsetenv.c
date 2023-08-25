@@ -10,7 +10,7 @@ int unset_env(char **args)
 	if (args[1] == NULL)
 	{
 		fprintf(stderr, "unsetenv: not enough arguments\n");
-		return;
+		return (0);
 	}
 
 	if (unsetenv(args[1]) == -1)
