@@ -23,7 +23,7 @@ int _strcmp(char *str1, char *str2);
 char **_token(char *str);
 char *_strtok(char *str, const char *delim);
 unsigned int _review_delim(char c, const char *delim);
-ssize_t _getline(char **buffer, size_t *buff_size_ptr, FILE *stream);
+char *_getline(void);
 int exit_shell(char **argv);
 int cd(char **argv);
 char *load_path(char *cmd);
@@ -37,4 +37,5 @@ int env(char **args);
 int set_env(char **args);
 int unset_env(char **args);
 char **split_line(char *line);
+int read_from_buffer(char *buffer, int *buffer_len, int *buffer_pos);
 #endif

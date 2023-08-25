@@ -1,55 +1,70 @@
 #include "shell.h"
 
-/**
- * _getline - reads a line from stdin and stores it in a buffer
- *
- * @buffer: pointer to the buffer where line is stored.
- * @buff_size_ptr: pointer to the size of the buffer
- * @stream: pointer to the input stream
- *
- * Return: number of characters read, exclude terminate null byte,
- * or -1 if error occurs
- */
-ssize_t _getline(char **buffer, size_t *buff_size_ptr, FILE *stream)
-{
-	ssize_t buff_size = *buff_size_ptr, len = 0;
-	int character;
-	char *new_buffer;
 
-	/* Checks buffer, allocates memory and handle error */
-	if (*buffer ==  NULL)
+/**
+ * read_from_buffer - read characters from buffer
+ * @buffer: the buffer to read from
+ * @buffer_len: the length of the buffer
+ * @buffer_pos: the current position
+ *
+ * Return: the next character from the buffer, or -1 if the buffer is empy
+ */
+int read_from_buffer(char *buffer, int *buffer_len, int *buffer_pos)
+{
+	if (*buffer_pos >= *buffer_len)
 	{
-		buff_size = 128;
-		*buffer = malloc(buff_size * sizeof(char));
-		if (*buffer == NULL)
+		*buffer_len = read(STDIN_FILENO, buffer, BUFFER_SIZE);
+		*buffer_pos = 0;
+		if (*buffer_len <= 0)
+		{
 			return (-1);
+		}
 	}
 
-	character = fgetc(stream);
-	while (character != EOF)
+	return (buffer[(*buffer_pos)++]);
+}
+
+/**
+ * _getline - read a line from standard input
+ * Return: pointer to the line read, or NULL on error
+ */
+char *_getline(void)
+{
+	static char buffer[BUFFER_SIZE];
+	static int buffer_len;
+	static int buffer_pos;
+	char *line = NULL;
+	int line_len = 0;
+	int line_size = 0;
+	char i;
+
+	while (1)
 	{
-		/* Checks and resizes the buffer_size by doubling it */
-		/* if it can't handle the line, realocate memory */
-		if (len >= buff_size - 1)
+		i = read_from_buffer(buffer, &buffer_len, &buffer_pos);
+		if (i == -1)
 		{
-			buff_size *= 2;
-			new_buffer = realloc(*buffer,
-					buff_size);
-			if (new_buffer == NULL)
-			{
-				free(*buffer);
-				return (-1);
-			}
-			*buffer = new_buffer;
+			break;
 		}
 
-		(*buffer)[len++] = character;
-		if (character == '\n')
+		if (line_len >= line_size)
+		{
+			line_size = line_size > 0 ? line_size * 2 : BUFFER_SIZE;
+			line = realloc(line, line_size);
+		}
+		line[line_len++] = i;
+
+		if (i == '\n')
+		{
 			break;
-		character = fgetc(stream);
+		}
 	}
-	if (len == 0 && character == EOF)
-		return (-1);
-	(*buffer)[len] = '\0';
-	return (len);
+
+	if (line_len == 0)
+	{
+		free(line);
+		return (NULL);
+	}
+
+	line[line_len] = '\0';
+	return (line);
 }
