@@ -3,6 +3,11 @@
 void run_interactive_mode(char **argv);
 void run_batch_mode(char **argv);
 
+void terminate_shell(char **argv);
+void change_directory(char **argv);
+void env(char **args);
+void set_env(char **args);
+void unset_env(char **args);
 
 /**
  * main - entry point of program
