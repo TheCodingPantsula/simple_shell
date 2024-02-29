@@ -1,4 +1,5 @@
 #include "shell.h"
+#include <string.h>
 
 #define MAX_ARGS 64
 
@@ -12,6 +13,12 @@ char **split_line(char *line)
 	char **args = malloc(MAX_ARGS * sizeof(char *));
 	int arg_count = 0;
 	int i, r;
+	char *delim = " ";
+
+	if (strchr(line, ';') != NULL)
+	{
+		delim = ";";
+	}
 
 	for (i = 0; line[i] != '\0'; i++)
 	{
@@ -23,7 +30,7 @@ char **split_line(char *line)
 		{
 			break;
 		}
-		for (r = i; line[r] != '\0' && line[r] != ' '; r++)
+		for (r = i; line[r] != '\0' && line[r] != *delim; r++)
 		{}
 		args[arg_count] = malloc(r - i + 1);
 		strncpy(args[arg_count], &line[i], r - i);

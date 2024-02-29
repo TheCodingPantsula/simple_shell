@@ -9,7 +9,9 @@ int _childprocess(pid_t pid)
 {
 	int status;
 
-	waitpid(pid, &status, 0);
+	do {
+		waitpid(pid, &status, WUNTRACED | WCONTINUED);
+	} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 
 	return (status);
 }
