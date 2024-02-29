@@ -31,6 +31,7 @@ int runbuiltins_commands(char **argv, char *str);
 int execute_commands(char **argv, char *str);
 char *get_command_path(char *command);
 void run_batch_mode(char **argv);
+void print_error(int line_index, char **argv, int counter);
 void run_interactive_made(char **argv);
 int _runchildprocess(char **argv, char *str);
 int env(char **args);
