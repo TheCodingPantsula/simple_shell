@@ -15,14 +15,16 @@ char **split_line(char *line)
 	int i, r;
 	char *delim = " ";
 
-	if (strchr(line, ';') != NULL)
+	if (strstr(line, "&&") != NULL ||
+			strstr(line, "||") != NULL ||
+			strchr(line, ';') != NULL)
 	{
-		delim = ";";
+		delim = "&&||;";
 	}
 
 	for (i = 0; line[i] != '\0'; i++)
 	{
-		while (line[i] == ' ')
+		while (strchr(delim, line[i]) != NULL)
 		{
 			i++;
 		}
@@ -30,7 +32,7 @@ char **split_line(char *line)
 		{
 			break;
 		}
-		for (r = i; line[r] != '\0' && line[r] != *delim; r++)
+		for (r = i; line[r] != '\0' && strchr(delim, line[r]) == NULL; r++)
 		{}
 		args[arg_count] = malloc(r - i + 1);
 		strncpy(args[arg_count], &line[i], r - i);

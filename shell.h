@@ -20,6 +20,7 @@ extern char **environ;
 
 int _childprocess(pid_t pid);
 int _strcmp(char *str1, char *str2);
+int run_commands(char **commands);
 char **_token(char *str);
 char *_strtok(char *str, const char *delim);
 unsigned int _review_delim(char c, const char *delim);
