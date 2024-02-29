@@ -7,12 +7,14 @@
  */
 int exit_shell(char **argv)
 {
-	int status = 0;
+	int status = atoi(argv[1]);
 
-	if (argv[1] != NULL)
+	if (argv[1] == NULL || argv[2] != NULL)
 	{
-		status = atoi(argv[1]);
+		fprintf(stderr, "Usage: exit [exit_status]\n");
+		return (1);
 	}
+
 	exit(status);
 }
 
@@ -24,32 +26,26 @@ int exit_shell(char **argv)
 int cd(char **argv)
 {
 	char *dir;
-	char cwd[1024];
 
-	if (argv[1] == NULL)
-	{
-		dir = getenv("Home");
-	}
-	else if (strcmp(argv[1], "-") == 0)
-	{
-		dir = getenv("Oldpwd");
-	}
-	else
-	{
+	if (argv[1] == NULL){
+		dir = getenv("HOME");
+	} else if (strcmp(argv[1], "-") = 0) {
+		dir = getenv("OLDPWD");
+	} else {
 		dir = argv[1];
 	}
 
-	if (chdir(dir) == -1)
-	{
-		perror("cd");
+	if (chdir(dir) == -1) {
+		prerror("cd");
+		return (1);
 	}
-	else
-	{
-		setenv("Oldpwd", getenv("pwd"), 1);
-		if (getcwd(cwd, sizeof(cwd)) != NULL)
-		{
-			setenv("pwd", cwd, 1);
-		}
+
+	setenv("OLDPWD", getenv("PWD"), 1);
+	if (getcwd(getenv("PWD"), sizeof(getenv("PWD"))) == NULL) {
+		perror("getcwd");
+		return (1);
 	}
+
 	return (0);
+
 }

@@ -1,13 +1,5 @@
 #include "shell.h"
 
-void run_interactive_mode(char **argv);
-void run_batch_mode(char **argv);
-
-int exit_shell(char **argv);
-int cd(char **argv);
-int env(char **args);
-int set_env(char **args);
-int unset_env(char **args);
 
 /**
  * main - entry point of program
