@@ -29,14 +29,14 @@ int cd(char **argv)
 
 	if (argv[1] == NULL){
 		dir = getenv("HOME");
-	} else if (strcmp(argv[1], "-") = 0) {
+	} else if (strcmp(argv[1], "-") == 0) {
 		dir = getenv("OLDPWD");
 	} else {
 		dir = argv[1];
 	}
 
 	if (chdir(dir) == -1) {
-		prerror("cd");
+		perror("cd");
 		return (1);
 	}
 
