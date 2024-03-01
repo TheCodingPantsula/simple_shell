@@ -8,6 +8,8 @@
  */
 int runbuiltins_commands(char **argv, char *str)
 {
+	int i;
+	int last_exit_status = 0;
 	int count;
 	int pid, status;
 	char *builtin_commands[] = { "exit", "cd", "env", "setenv",
@@ -27,44 +29,46 @@ int runbuiltins_commands(char **argv, char *str)
 		if (_strcmp(argv[0], builtin_commands[count]) == 0)
 			return ((*builtin_functions[count])(argv));
 	}
+
+	for (i = 0; argv[i] != NULL; i++)
+	{
+		if (argv[i][0] == '$')
+		{
+			if (strcmp(argv[i], "$?") == 0)
+			{
+				char exit_status_str[12];
+
+				sprintf(exit_status_str, "%d", last_exit_status);
+				argv[i] = strdup(exit_status_str);
+			}
+			else if (strcmp(argv[i], "$$") == 0)
+			{
+				char pid_str[12];
+
+				sprintf(pid_str, "%d", getpid());
+				argv[i] = strdup(pid_str);
+			}
+			else
+			{
+				char *value = getenv(argv[i] + 1);
+
+				if (value != NULL)
+				{
+					argv[i] = value;
+				}
+			}
+		}
+	}
+
 	pid = _runchildprocess(argv, str);
 	if (pid == -1)
 		return (-1);
 	status = _childprocess(pid);
 	if (WIFEXITED(status))
 	{
-		return (WEXITSTATUS(status));
+		last_exit_status = WEXITSTATUS(status);
+		return (last_exit_status);
 	}
 
 	return (-1);
-}
-
-/**
- * run_commands - executes commands based on ;, &&, and ||
- * oparators
- * @commands: array of commands
- * Return: exit status of the last command executed
- */
-int run_commands(char **commands)
-{
-	int status = 0;
-	int i;
-	char **argv;
-
-	for (i = 0; commands[i] != NULL; i++)
-	{
-		argv = split_line(commands[i]);
-
-		status = runbuiltins_commands(argv, commands[i]);
-		free(argv);
-
-		if ((strcmp(commands[i], "&&") == 0 && status != 0) ||
-				(strcmp(commands[i], "||")
-				 == 0 && status == 0))
-		{
-			break;
-		}
-	}
-
-	return (status);
 }

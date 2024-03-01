@@ -13,6 +13,8 @@
 
 #include "alias.h"
 
+extern int last_exit_status;
+
 extern char **environ;
 
 #define BUFFER_SIZE 1024
