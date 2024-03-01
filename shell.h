@@ -11,6 +11,8 @@
 #include <errno.h>
 #include <sys/stat.h>
 
+#include "alias.h"
+
 extern char **environ;
 
 #define BUFFER_SIZE 1024
